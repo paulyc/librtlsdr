@@ -39,7 +39,7 @@ endif()
 
 # Set the version information here
 set(VERSION_INFO_MAJOR_VERSION 0) # increment major on api compatibility changes
-set(VERSION_INFO_MINOR_VERSION 6) # increment minor on feature-level changes
+set(VERSION_INFO_MINOR_VERSION 7) # increment minor on feature-level changes
 set(VERSION_INFO_PATCH_VERSION git) # increment patch for bug fixes and docs
 include(Version) # setup version info
 
@@ -59,6 +59,14 @@ elseif(MSVC14 OR MSVC14)
 #pthread-w32 issue, timespec is now part of time.h
     ADD_DEFINITIONS(-D_TIMESPEC_DEFINED)
 endif()
+
+#########################################################################
+# Bug Fix
+#########################################################################
+OPTION(NEED_PTHREADS_WORKARROUND "PThreads Workarround for timespec")
+IF (NEED_PTHREADS_WORKARROUND)
+    ADD_DEFINITIONS(-DNEED_PTHREADS_WORKARROUND)
+ENDIF()
 
 ########################################################################
 # Find build dependencies
